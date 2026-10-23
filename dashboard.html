@@ -1,0 +1,205 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2 class="logo">MyDashboard</h2>
+
+        <nav>
+            <a href="#home" class="active">🏠 Home</a>
+            <a href="#analytics">📊 Analytics</a>
+            <a href="#projects">📁 Projects</a>
+            <a href="#messages">✉️ Messages</a>
+            <a href="#settings">⚙️ Settings</a>
+        </nav>
+
+        <button class="logout-btn" onclick="logout()">
+            ↪ Log Out
+        </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="home">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div>
+                <h1>Dashboard Overview</h1>
+                <p>Welcome back! Here's what's happening today.</p>
+            </div>
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search activities..."
+                aria-label="Search activities"
+            >
+        </header>
+
+        <!-- Statistics Cards -->
+        <section class="stats-grid" aria-label="Dashboard statistics">
+
+            <article class="stat-card">
+                <div class="stat-icon purple">👥</div>
+                <p>Total Users</p>
+                <h2>1,250</h2>
+                <span class="positive">+12% this month</span>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon blue">📁</div>
+                <p>Total Projects</p>
+                <h2>48</h2>
+                <span class="positive">+8 new projects</span>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon orange">✉️</div>
+                <p>Messages</p>
+                <h2>24</h2>
+                <span class="neutral">5 unread messages</span>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon green">✅</div>
+                <p>Completed Tasks</p>
+                <h2>86</h2>
+                <span class="positive">+15 this week</span>
+            </article>
+
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="panel" id="projects">
+            <div class="section-heading">
+                <h2>Quick Actions</h2>
+                <p>Shortcuts to common tasks</p>
+            </div>
+
+            <div class="actions-grid">
+                <button class="action-btn" onclick="showNotice('Create Project')">
+                    <span>➕</span>
+                    Create Project
+                </button>
+
+                <button class="action-btn" onclick="showNotice('View Analytics')">
+                    <span>📈</span>
+                    View Analytics
+                </button>
+
+                <button class="action-btn" onclick="showNotice('Check Messages')">
+                    <span>💬</span>
+                    Check Messages
+                </button>
+
+                <button class="action-btn" onclick="showNotice('Manage Settings')">
+                    <span>⚙️</span>
+                    Manage Settings
+                </button>
+            </div>
+        </section>
+
+        <!-- Recent Activities -->
+        <section class="panel" id="analytics">
+            <div class="section-heading">
+                <h2>Recent Activities</h2>
+                <p>Your latest updates</p>
+            </div>
+
+            <div class="activity-list" id="activityList">
+
+                <article class="activity-item">
+                    <div class="activity-icon">📁</div>
+                    <div class="activity-info">
+                        <h3>Website Project</h3>
+                        <p>A new project was created.</p>
+                    </div>
+                    <span class="activity-status completed">Completed</span>
+                </article>
+
+                <article class="activity-item">
+                    <div class="activity-icon">✉️</div>
+                    <div class="activity-info">
+                        <h3>New Message</h3>
+                        <p>You received a new message.</p>
+                    </div>
+                    <span class="activity-status pending">Unread</span>
+                </article>
+
+                <article class="activity-item">
+                    <div class="activity-icon">👤</div>
+                    <div class="activity-info">
+                        <h3>Profile Update</h3>
+                        <p>Your profile information was updated.</p>
+                    </div>
+                    <span class="activity-status completed">Completed</span>
+                </article>
+
+                <article class="activity-item">
+                    <div class="activity-icon">⚙️</div>
+                    <div class="activity-info">
+                        <h3>System Settings</h3>
+                        <p>Your dashboard settings were changed.</p>
+                    </div>
+                    <span class="activity-status pending">In progress</span>
+                </article>
+
+            </div>
+
+            <p id="emptyMessage" class="empty-message" hidden>
+                No matching activities found.
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" id="settings">
+            <p>© 2026 MyDashboard. All rights reserved.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        function logout() {
+            window.location.href = "index.html";
+        }
+
+        function showNotice(action) {
+            alert(action + " feature selected!");
+        }
+
+        // Search recent activities
+        const searchInput = document.getElementById("searchInput");
+        const activityItems = document.querySelectorAll(".activity-item");
+        const emptyMessage = document.getElementById("emptyMessage");
+
+        searchInput.addEventListener("input", function () {
+            const query = this.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            activityItems.forEach(function (item) {
+                const matches = item.textContent
+                    .toLowerCase()
+                    .includes(query);
+
+                item.hidden = !matches;
+
+                if (matches) {
+                    visibleCount++;
+                }
+            });
+
+            emptyMessage.hidden = visibleCount !== 0;
+        });
+    </script>
+
+</body>
+</html>
+```
